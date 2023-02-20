@@ -1,0 +1,136 @@
+\ProvidesPackage{santi}
+
+%%%%% OPTIONS %%%%%
+\newcommand{\fonttype}{\rmdefault}
+\DeclareOption{roman}{}
+\DeclareOption{sans-serif}{\renewcommand{\fonttype}{\sfdefault}}
+
+\newcommand{\pagesize}{a4paper}
+\DeclareOption{a4paper}{}
+ % Good size for tablets according to wikibooks.
+\DeclareOption{tablet}{\renewcommand{\pagesize}{paperwidth=441pt, paperheight=666pt}}
+
+\newcommand{\lang}{UKenglish}
+\DeclareOption{en}{}
+\DeclareOption{es}{\renewcommand{\lang}{spanish}}
+
+\DeclareOption*{\PackageWarning{examplepackage}{Unknown ‘\CurrentOption’}}
+\ProcessOptions\relax
+
+
+%%%%% SOME PACKAGES %%%%%
+\usepackage{enumitem} % Useful options for itemize and customizing lists (e.g. 'noitemsep' or 'align=...')
+\usepackage[hidelinks]{hyperref} % Include links. hidelinks to hide annoying red border around them.
+\usepackage[dvipsnames]{xcolor} % Get some more color names.
+\usepackage{mathtools}
+
+
+%%%%% FONT %%%%%
+\usepackage[T1]{fontenc} % Set font (output) encoding for tildes, etc.
+\renewcommand{\familydefault}{\fonttype} % Set default font type: \rmdefault for roman (default) and \sfdefault for sans-serif
+
+
+%%%%% PAGE LAYOUT %%%%%
+\usepackage[\pagesize]{geometry} % Set page size. May not work as expected without pdflatex.
+
+
+%%%%% HEADERS/FOOTERS %%%%%
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % clear everything
+% \renewcommand{\sectionmark}[1]{\markboth{#1}{}} % use these to change the text of the header, remove the number, etc ...
+% \renewcommand{\subsectionmark}[1]{\markright{#1}}
+\fancyhead[LE, RO]{\thepage}
+\fancyhead[RE]{\nouppercase\leftmark}
+\fancyhead[LO]{\nouppercase\rightmark}
+
+
+%%%%% LANGUAGE %%%%%
+\def\spanishoptions{spain}
+\usepackage[\lang]{babel} % Use spanish or UKenglish as needed.
+
+
+%%%%% MATH/THEOREMS %%%%%
+\usepackage{amssymb}
+\usepackage[theorems, skins]{tcolorbox} % For colored theorems. Also loads amsmath
+
+\definecolor{thm_color}{HTML}{227C9D}
+\definecolor{lm_color}{HTML}{17C3B2}
+\definecolor{def_color}{HTML}{FFCB77}
+\definecolor{rmk_color}{HTML}{FE6D73}
+
+\tcbset{
+	thmstyle/.style={fonttitle=\bfseries\upshape, fontupper=\slshape, 
+		colback=thm_color!5!white, colframe=thm_color}, % options for theorems, corollaries
+	lmstyle/.style={fonttitle=\bfseries\upshape, fontupper=\slshape,
+		colback=lm_color!5!white, colframe=lm_color}, % options for lemmas, propositions
+	defstyle/.style={fonttitle=\bfseries, coltitle=black,
+        arc=0mm, colback=def_color!5!white, colframe=def_color}, % options for definitions
+	rmkstyle/.style={skin=tile, fonttitle=\bfseries, title filled, sharp corners,
+		boxrule=0pt, colback=rmk_color!15!white, colbacktitle=rmk_color} % options for remarks
+}
+
+% \newtcbtheorem
+% 	[] % init options
+% 	{} % name
+% 	{} % display name
+% 	{} % options
+% 	{} % prefix
+
+\newtcbtheorem
+	[number within=section] % init options
+	{theorem} % name
+	{Theorem} % display name
+	{thmstyle} % options
+	{thm} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{corollary} % name
+	{Corollary} % display name
+	{thmstyle} % options
+	{cor} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{lemma} % name
+	{Lemma} % display name
+	{lmstyle} % options
+	{lm} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{proposition} % name
+	{Proposition} % display name
+	{lmstyle} % options
+	{prop} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{definition} % name
+	{Definition} % display name
+	{defstyle} % options
+	{def} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{remark} % name
+	{Remark} % display name
+	{rmkstyle} % options
+	{rmk} % prefix
+
+
+%%%%% COMMANDS %%%%%
+\renewcommand{\mathbb}[1]{\mathbf{#1}} % use bold font instead of blackboard bold
+\newcommand{\C}{\mathbb C}
+\newcommand{\N}{\mathbb N}
+\renewcommand{\P}{\mathbb P}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+
+\newcommand{\defeq}{\coloneqq}
+\renewcommand{\d}{\mathrm d}
+
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\res}{res}
