@@ -1,0 +1,90 @@
+\ProvidesPackage{cooltheorems}
+
+\usepackage[theorems, skins]{tcolorbox} % For colored theorems. Also loads amsmath
+
+\definecolor{thm_color}{HTML}{227C9D}
+\colorlet{hyp_color}{thm_color!50}
+\definecolor{prop_color}{HTML}{17C3B2}
+\colorlet{conj_color}{prop_color!50}
+\definecolor{def_color}{HTML}{FFCB77}
+\definecolor{rmk_color}{HTML}{FE6D73}
+
+\tcbset{
+	thmstyle/.style={fonttitle=\bfseries\upshape, fontupper=\slshape, 
+		colback=thm_color!5!white, colframe=thm_color}, % options for theorems, corollaries
+	hypstyle/.style={fonttitle=\bfseries\upshape, fontupper=\slshape, 
+		colback=hyp_color!5!white, colframe=hyp_color}, % options for hypothesis
+	lmstyle/.style={fonttitle=\bfseries\upshape, fontupper=\slshape,
+		colback=prop_color!5!white, colframe=prop_color}, % options for lemmas, propositions
+	conjstyle/.style={fonttitle=\bfseries\upshape, fontupper=\slshape, 
+		colback=conj_color!5!white, colframe=conj_color}, % options for conjectures
+	defstyle/.style={fonttitle=\bfseries, coltitle=black,
+        	arc=0mm, colback=def_color!5!white, colframe=def_color}, % options for definitions
+	rmkstyle/.style={skin=tile, fonttitle=\bfseries, title filled, sharp corners,
+		boxrule=0pt, colback=rmk_color!15!white, colbacktitle=rmk_color} % options for remarks
+}
+
+% \newtcbtheorem
+% 	[] % init options
+% 	{} % name
+% 	{} % display name
+% 	{} % options
+% 	{} % prefix
+
+\newtcbtheorem
+	[number within=section] % init options
+	{theorem} % name
+	{Theorem} % display name
+	{thmstyle} % options
+	{thm} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{corollary} % name
+	{Corollary} % display name
+	{thmstyle} % options
+	{cor} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{lemma} % name
+	{Lemma} % display name
+	{lmstyle} % options
+	{lm} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{proposition} % name
+	{Proposition} % display name
+	{lmstyle} % options
+	{prop} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{definition} % name
+	{Definition} % display name
+	{defstyle} % options
+	{def} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{remark} % name
+	{Remark} % display name
+	{rmkstyle} % options
+	{rmk} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{conjecture} % name
+	{Conjecture} % display name
+	{conjstyle} % options
+	{conj} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{hypothesis} % name
+	{Hypothesis} % display name
+	{hypstyle} % options
+	{hyp} % prefix
+
+\endinput

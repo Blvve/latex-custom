@@ -1,18 +1,18 @@
 \ProvidesPackage{santi}
 
 %%%%% OPTIONS %%%%%
-\newcommand{\fonttype}{\rmdefault}
-\DeclareOption{roman}{}
-\DeclareOption{sans-serif}{\renewcommand{\fonttype}{\sfdefault}}
+\DeclareOption{roman}{\renewcommand{\familydefault}{\rmdefault}}
+\DeclareOption{sans-serif}{\renewcommand{\familydefault}{\sfdefault}}
+\ExecuteOptions{sans-serif}
 
-\newcommand{\pagesize}{a4paper}
-\DeclareOption{a4paper}{}
+\DeclareOption{a4paper}{\newcommand{\pagesize}{a4paper}}
  % Good size for tablets according to wikibooks.
-\DeclareOption{tablet}{\renewcommand{\pagesize}{paperwidth=441pt, paperheight=666pt}}
+\DeclareOption{tablet}{\newcommand{\pagesize}{paperwidth=441pt, paperheight=666pt}}
+\ExecuteOptions{a4paper}
 
-\newcommand{\lang}{UKenglish}
-\DeclareOption{en}{}
-\DeclareOption{es}{\renewcommand{\lang}{spanish}}
+\DeclareOption{en}{\newcommand{\lang}{UKenglish}}
+\DeclareOption{es}{\newcommand{\lang}{spanish}}
+\ExecuteOptions{en}
 
 \DeclareOption*{\PackageWarning{examplepackage}{Unknown ‘\CurrentOption’}}
 \ProcessOptions\relax
@@ -27,7 +27,7 @@
 
 %%%%% FONT %%%%%
 \usepackage[T1]{fontenc} % Set font (output) encoding for tildes, etc.
-\renewcommand{\familydefault}{\fonttype} % Set default font type: \rmdefault for roman (default) and \sfdefault for sans-serif
+% Font set at options!
 
 
 %%%%% PAGE LAYOUT %%%%%
@@ -51,75 +51,11 @@
 
 
 %%%%% MATH/THEOREMS %%%%%
-\usepackage{amssymb}
-\usepackage[theorems, skins]{tcolorbox} % For colored theorems. Also loads amsmath
+\usepackage{amsmath, amssymb}
+\usepackage{cooltheorems} %My custom package for colored theorems.
 
 \mathtoolsset{showonlyrefs=true} % Number equations iff they are referenced.
 
-\definecolor{thm_color}{HTML}{227C9D}
-\definecolor{lm_color}{HTML}{17C3B2}
-\definecolor{def_color}{HTML}{FFCB77}
-\definecolor{rmk_color}{HTML}{FE6D73}
-
-\tcbset{
-	thmstyle/.style={fonttitle=\bfseries\upshape, fontupper=\slshape, 
-		colback=thm_color!5!white, colframe=thm_color}, % options for theorems, corollaries
-	lmstyle/.style={fonttitle=\bfseries\upshape, fontupper=\slshape,
-		colback=lm_color!5!white, colframe=lm_color}, % options for lemmas, propositions
-	defstyle/.style={fonttitle=\bfseries, coltitle=black,
-        arc=0mm, colback=def_color!5!white, colframe=def_color}, % options for definitions
-	rmkstyle/.style={skin=tile, fonttitle=\bfseries, title filled, sharp corners,
-		boxrule=0pt, colback=rmk_color!15!white, colbacktitle=rmk_color} % options for remarks
-}
-
-% \newtcbtheorem
-% 	[] % init options
-% 	{} % name
-% 	{} % display name
-% 	{} % options
-% 	{} % prefix
-
-\newtcbtheorem
-	[number within=section] % init options
-	{theorem} % name
-	{Theorem} % display name
-	{thmstyle} % options
-	{thm} % prefix
-
-\newtcbtheorem
-	[use counter from=theorem] % init options
-	{corollary} % name
-	{Corollary} % display name
-	{thmstyle} % options
-	{cor} % prefix
-
-\newtcbtheorem
-	[use counter from=theorem] % init options
-	{lemma} % name
-	{Lemma} % display name
-	{lmstyle} % options
-	{lm} % prefix
-
-\newtcbtheorem
-	[use counter from=theorem] % init options
-	{proposition} % name
-	{Proposition} % display name
-	{lmstyle} % options
-	{prop} % prefix
-
-\newtcbtheorem
-	[use counter from=theorem] % init options
-	{definition} % name
-	{Definition} % display name
-	{defstyle} % options
-	{def} % prefix
-
-\newtcbtheorem
-	[use counter from=theorem] % init options
-	{remark} % name
-	{Remark} % display name
-	{rmkstyle} % options
-	{rmk} % prefix
 
 
 %%%%% COMMANDS %%%%%
@@ -136,3 +72,5 @@
 
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\res}{res}
+
+\endinput
