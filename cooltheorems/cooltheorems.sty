@@ -1,5 +1,14 @@
 \ProvidesPackage{cooltheorems}
 
+
+\providecommand{\numthemwithin}{}
+\DeclareOption{section}{\renewcommand{\numthmwithin}{section}}
+\DeclareOption{chapter}{\renewcommand{\numthmwithin}{chapter}}
+\ExecuteOptions{section}
+
+\DeclareOption*{\PackageWarning{cooltheorems}{Unknown ‘\CurrentOption’}}
+\ProcessOptions\relax
+
 \usepackage[theorems, skins]{tcolorbox} % For colored theorems. Also loads amsmath
 
 \definecolor{thm_color}{HTML}{227C9D}
@@ -32,7 +41,7 @@
 % 	{} % prefix
 
 \newtcbtheorem
-	[number within=section] % init options
+	[number within=\numthmwithin] % init options
 	{theorem} % name
 	{Theorem} % display name
 	{thmstyle} % options
