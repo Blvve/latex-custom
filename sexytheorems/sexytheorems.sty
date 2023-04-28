@@ -1,4 +1,4 @@
-\ProvidesPackage{cooltheorems}
+\ProvidesPackage{sexytheorems}
 
 \usepackage[theorems, skins]{tcolorbox} % For coloured theorems. Also loads amsmath
 
@@ -33,13 +33,13 @@
 
 \makeatletter
 \@ifclassloaded{report}
-	{\newcommand{\numthmwihtin}{chapter}}
-	{\newcommant{\numthmwithin}{section}}
+	{\newcommand{\santithmnumwithin}{chapter}}
+	{\newcommand{\santithmnumwithin}{section}}
 \makeatother
 
 
 \newtcbtheorem
-	[number within=\numthmwithin] % init options
+	[number within=\santithmnumwithin] % init options
 	{theorem} % name
 	{Theorem} % display name
 	{thmstyle} % options
