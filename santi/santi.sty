@@ -1,29 +1,26 @@
 \ProvidesPackage{santi}
 
+
+\newif\ifsantiroman\santiromantrue
+
+\newif\ifsantitablet\santitabletfalse
+
+\newif\ifsantienglish\santienglishtrue
+\newif\ifsantibritish\santibritishtrue
+
+
 %%%%% OPTIONS %%%%%
-\DeclareOption{roman}{\renewcommand{\familydefault}{\rmdefault}}
-\DeclareOption{sans-serif}{\renewcommand{\familydefault}{\sfdefault}}
-\ExecuteOptions{sans-serif}
 
-% the provide command thing is a shit solution to shit problem. If an option
-% is provided, some of these commands are executed twice. The first time the
-% command does not exist, the second one it does. So i need to provide it 
-% at the beginning to not get any errors. There must be a better way though.
-\providecommand{\pagesize}{} 
-\DeclareOption{a4paper}{\renewcommand{\pagesize}{a4paper}}
- % Good size for tablets according to wikibooks.
-\DeclareOption{tablet}{\renewcommand{\pagesize}{paperwidth=441pt, paperheight=666pt}}
-\ExecuteOptions{a4paper}
+\DeclareOption{roman}{\santiromantrue}
+\DeclareOption{sans}{\santiromanfalse}
 
-\providecommand{\lang}{}
-\DeclareOption{en}{\renewcommand{\lang}{UKenglish}}
-\DeclareOption{es}{\renewcommand{\lang}{spanish}}
-\ExecuteOptions{en}
+\DeclareOption{a4paper}{\santitabletfalse}
+\DeclareOption{tablet}{\santitablettrue}
 
-\providecommand{\numthmwithin}{}
-\DeclareOption{article}{\renewcommand{\numthmwithin}{section}}
-\DeclareOption{report}{\renewcommand{\numthmwithin}{chapter}}
-\ExecuteOptions{article}
+\DeclareOption{english}{\santienglishtrue}
+\DeclareOption{spanish}{\santienglishfalse}
+\DeclareOption{british}{\santibritishtrue}
+\DeclareOption{american}{\santibritishfalse}
 
 \DeclareOption*{\PackageWarning{santi}{Unknown ‘\CurrentOption’}}
 \ProcessOptions\relax
@@ -38,11 +35,21 @@
 
 %%%%% FONT %%%%%
 \usepackage[T1]{fontenc} % Set font (output) encoding for tildes, etc.
-% Font set at options!
+\ifsantiroman
+	\renewcommand{\familydefault}{\rmdefault}
+\else
+	\renewcommand{\familydefault}{\sfdefault}
+\fi
 
 
 %%%%% PAGE LAYOUT %%%%%
-\usepackage[\pagesize]{geometry} % Set page size. May not work as expected without pdflatex.
+\ifsantitablet
+	\newcommand{\santipagesize}{paperwidth=441pt, paperheight=666pt}
+\else
+	\newcommant{\santipagesize}{a4paper}
+\fi
+
+\usepackage[\santipagesize]{geometry} % Set page size. May not work as expected without pdflatex.
 
 
 %%%%% HEADERS/FOOTERS %%%%%
@@ -57,13 +64,23 @@
 
 
 %%%%% LANGUAGE %%%%%
-\def\spanishoptions{spain}
-\usepackage[\lang]{babel} % Use spanish or UKenglish as needed.
+\ifsantienglish
+	\ifsantibritish
+		\newcommand{\santilang}{UKenglish}
+	\else
+		\newcommand{\santilang}{english}
+	\fi
+\else
+	\newcommant{\santilang}{spanish}
+	\def\spanishoptions{spain}
+\fi
+
+\usepackage[\santilang]{babel} % Use spanish or UKenglish as needed.
 
 
 %%%%% MATH/THEOREMS %%%%%
 \usepackage{amsmath, amssymb}
-\usepackage[\numthmwithin]{cooltheorems} %My custom package for colored theorems.
+\usepackage{cooltheorems} %My custom package for coloured theorems.
 
 \mathtoolsset{showonlyrefs=true} % Number equations iff they are referenced.
 
