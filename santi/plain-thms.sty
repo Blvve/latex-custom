@@ -1,0 +1,32 @@
+\makeatletter
+\@ifclassloaded{report}
+	{\newcommand{\santithmnumwithin}{chapter}}
+	{\newcommand{\santithmnumwithin}{section}}
+\makeatother
+
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[\santithmnumwithin]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lm}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{hyp}[thm]{Hypothesis}
+
+\theoremstyle{definition}
+\newtheorem{df}[thm]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{rmk}[thm]{Remark}
+
+
+\usepackage{environ}
+\NewEnviron{theorem}[2]{\begin{thm}[{#1}]\label{thm:#2}\BODY\end{thm}}
+\NewEnviron{corollary}[2]{\begin{cor}[{#1}]\label{cor:#2}\BODY\end{cor}}
+\NewEnviron{lemma}[2]{\begin{lm}[{#1}]\label{lm:#2}\BODY\end{lm}}
+\NewEnviron{proposition}[2]{\begin{prop}[{#1}]\label{prop:#2}\BODY\end{prop}}
+\NewEnviron{conjecture}[2]{\begin{conj}[{#1}]\label{conj:#2}\BODY\end{conj}}
+\NewEnviron{hypothesis}[2]{\begin{hyp}[{#1}]\label{hyp:#2}\BODY\end{hyp}}
+\NewEnviron{definition}[2]{\begin{df}[{#1}]\label{def:#2}\BODY\end{df}}
+\NewEnviron{remark}[2]{\begin{rmk}[{#1}]\label{rmk:#2}\BODY\end{rmk}}
+

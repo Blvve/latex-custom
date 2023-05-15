@@ -9,6 +9,9 @@
 \newif\ifsantienglish\santienglishtrue
 \newif\ifsantibritish\santibritishtrue
 
+\newif\ifsantimathsmacros\santimathsmacrostrue
+\newif\ifsantisexythm\santisexythmtrue
+
 
 %%%%% OPTIONS %%%%%
 
@@ -24,6 +27,10 @@
 \DeclareOption{british}{\santibritishtrue}
 \DeclareOption{american}{\santibritishfalse}
 
+\DeclareOption{no-macros}{\santimathsmacrosfalse}
+\DeclareOption{sexy-theorems}{\santisexythmtrue}
+\DeclareOption{plain-theorems}{\santisexythmfalse}
+
 \DeclareOption*{\PackageWarning{santi}{Unknown ‘\CurrentOption’}}
 \ProcessOptions\relax
 
@@ -37,17 +44,17 @@
 %%%%% FONT %%%%%
 \usepackage[T1]{fontenc} % Set font (output) encoding for tildes, etc.
 \ifsantiroman
-	\renewcommand{\familydefault}{\rmdefault}
+  \renewcommand{\familydefault}{\rmdefault}
 \else
-	\renewcommand{\familydefault}{\sfdefault}
+  \renewcommand{\familydefault}{\sfdefault}
 \fi
 
 
 %%%%% PAGE LAYOUT %%%%%
 \ifsantitablet
-	\newcommand{\santipagesize}{paperwidth=441pt, paperheight=666pt}
+  \newcommand{\santipagesize}{paperwidth=441pt, paperheight=666pt}
 \else
-	\newcommand{\santipagesize}{a4paper}
+  \newcommand{\santipagesize}{a4paper}
 \fi
 
 \usepackage[\santipagesize]{geometry} % Set page size. May not work as expected without pdflatex.
@@ -55,57 +62,49 @@
 
 %%%%% HEADERS/FOOTERS %%%%%
 \ifsantiheaders
-	\usepackage{fancyhdr}
-	\pagestyle{fancy}
-	\fancyhf{} % clear everything
-	% \renewcommand{\sectionmark}[1]{\markboth{#1}{}} % use these to change the text of the header, remove the number, etc ...
-	% \renewcommand{\subsectionmark}[1]{\markright{#1}}
-	\fancyhead[LE, RO]{\thepage}
-	\fancyhead[RE]{\nouppercase\leftmark}
-	\fancyhead[LO]{\nouppercase\rightmark}
+  \usepackage{fancyhdr}
+  \pagestyle{fancy}
+  \fancyhf{} % clear everything
+  % \renewcommand{\sectionmark}[1]{\markboth{#1}{}} % use these to change the text of the header, remove the number, etc ...
+  % \renewcommand{\subsectionmark}[1]{\markright{#1}}
+  \fancyhead[LE, RO]{\thepage}
+  \fancyhead[RE]{\nouppercase\leftmark}
+  \fancyhead[LO]{\nouppercase\rightmark}
 \fi
 
 
 %%%%% LANGUAGE %%%%%
 \ifsantienglish
-	\ifsantibritish
-		\newcommand{\santilang}{UKenglish}
-	\else
-		\newcommand{\santilang}{english}
-	\fi
+  \ifsantibritish
+    \newcommand{\santilang}{UKenglish}
+  \else
+    \newcommand{\santilang}{english}
+  \fi
 \else
-	\newcommant{\santilang}{spanish}
-	\def\spanishoptions{spain}
+  \newcommant{\santilang}{spanish}
+  \def\spanishoptions{spain}
 \fi
 
-\usepackage[\santilang]{babel} % Use spanish or UKenglish as needed.
+\usepackage[\santilang]{babel}
 
 
-%%%%% MATH/THEOREMS %%%%%
+%%%%% MATHS/THEOREMS %%%%%
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{mathtools}
-\usepackage{sexytheorems} %My custom package for coloured theorems.
+\ifsantisexythm
+  \usepackage{sexytheorems} %My custom package for coloured theorems.
+\else
+  \input{plain-thms.sty}
+\fi
 
 \mathtoolsset{showonlyrefs=true} % Number equations iff they are referenced.
 
 
 
-%%%%% COMMANDS %%%%%
-\renewcommand{\mathbb}[1]{\mathbf{#1}} % use bold font instead of blackboard bold
-\newcommand{\C}{\mathbb C} % complex numbers
-\newcommand{\N}{\mathbb N} % natural numbers
-\renewcommand{\P}{\mathbb P} % probability
-\newcommand{\Q}{\mathbb Q} % rational numbers
-\newcommand{\R}{\mathbb R} % real numbers
-\newcommand{\Z}{\mathbb Z} % integers
-\newcommand{\E}{\mathbb E} % expectation
+%%%%% MACROS %%%%%
+\ifsantimathsmacros
+  \input{maths-macros.sty}
+\fi
 
-\newcommand{\defeq}{\coloneqq}
-\renewcommand{\d}{\mathrm d}
-\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
-
-\DeclareMathOperator{\ord}{ord}
-\DeclareMathOperator{\res}{res}
-\DeclareMathOperator{\poly}{Poly}
 
 \endinput
