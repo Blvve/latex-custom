@@ -10,18 +10,46 @@
 \definecolor{rmk_color}{HTML}{FE6D73}
 
 \tcbset{
-	thmstyle/.style={fonttitle=\bfseries\upshape, fontupper=\slshape, 
-		colback=thm_color!5!white, colframe=thm_color}, % options for theorems, corollaries
-	hypstyle/.style={fonttitle=\bfseries\upshape, fontupper=\slshape, 
-		colback=hyp_color!5!white, colframe=hyp_color}, % options for hypothesis
-	lmstyle/.style={fonttitle=\bfseries\upshape, fontupper=\slshape,
-		colback=prop_color!5!white, colframe=prop_color}, % options for lemmas, propositions
-	conjstyle/.style={fonttitle=\bfseries\upshape, fontupper=\slshape, 
-		colback=conj_color!5!white, colframe=conj_color}, % options for conjectures
-	defstyle/.style={fonttitle=\bfseries, coltitle=black,
-        	arc=0mm, colback=def_color!5!white, colframe=def_color}, % options for definitions
-	rmkstyle/.style={skin=tile, fonttitle=\bfseries, title filled, sharp corners,
-		boxrule=0pt, colback=rmk_color!15!white, colbacktitle=rmk_color} % options for remarks
+	thmstyle/.style={% options for theorems, corollaries
+		fonttitle=\bfseries,
+		fontupper=\slshape,
+		colback=thm_color!5!white,
+		colframe=thm_color
+	}, 
+	hypstyle/.style={% options for hypothesis
+		fonttitle=\bfseries,
+		fontupper=\slshape, 
+		colback=hyp_color!5!white,
+		colframe=hyp_color
+	},
+	lmstyle/.style={% options for lemmas, propositions
+		fonttitle=\bfseries,
+		fontupper=\slshape,
+		colback=prop_color!5!white,
+		colframe=prop_color
+	}, 
+	conjstyle/.style={% options for conjectures
+		fonttitle=\bfseries,
+		fontupper=\slshape, 
+		colback=conj_color!5!white,
+		colframe=conj_color
+	}, 
+	defstyle/.style={% options for definitions
+		fonttitle=\bfseries,
+		coltitle=black,
+        	arc=0mm,
+		colback=def_color!5!white,
+		colframe=def_color
+	}, 
+	rmkstyle/.style={% options for remarks
+		skin=tile,
+		fonttitle=\bfseries,
+		title filled,
+		sharp corners,
+		boxrule=0pt,
+		colback=rmk_color!15!white,
+		colbacktitle=rmk_color
+	}
 }
 
 % \newtcbtheorem
@@ -31,6 +59,7 @@
 % 	{} % options
 % 	{} % prefix
 
+% Determine if the number is within chapter or sections depending on the document class.
 \makeatletter
 \@ifclassloaded{report}
 	{\newcommand{\santithmnumwithin}{chapter}}
